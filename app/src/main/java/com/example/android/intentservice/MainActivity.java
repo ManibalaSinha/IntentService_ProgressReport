@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.intentservice.services.MyService;
 import com.example.android.intentservice.utils.NetworkHelper;
@@ -49,13 +50,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void runClickHandler(View view){
+        if(networkOk){
         //step3 pass the uri
         Intent intent = new Intent(this, MyService.class);
         intent.setData(Uri.parse(JSON_URL));
         startService(intent);
-        startService(intent);
-        startService(intent);
-    }
+       // startService(intent);
+      //  startService(intent);
+    } else {
+            Toast.makeText(this, "Network not available", Toast.LENGTH_SHORT).show();
+        }
+        }
     public void clearClickHandle(View view){
         output.setText("");
     }
