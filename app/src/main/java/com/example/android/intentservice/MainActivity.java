@@ -12,9 +12,12 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.android.intentservice.services.MyService;
+import com.example.android.intentservice.utils.NetworkHelper;
 
 public class MainActivity extends AppCompatActivity {
     private static final String JSON_URL="http://560057.youcanlearnit.net/services/json/itemsfeed.php";
+    //step2: connection over the web
+    private boolean networkOk;
     TextView output;
     //step6.
     //listening architecture
@@ -34,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
         output = (TextView) findViewById(R.id.output);
         //step7
         LocalBroadcastManager.getInstance(getApplicationContext()).registerReceiver(mBroadcastReceiver, new IntentFilter(MyService.MY_SERVICE_MESSAGE));
+        // step3 connection over the web
+        networkOk = NetworkHelper.hasNetworkAccess(this);
+        output.append("Network ok: " + networkOk);
     }
 //step 8
     @Override
