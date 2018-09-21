@@ -7,6 +7,10 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
+import com.example.android.intentservice.utils.HttpHelper;
+
+import java.io.IOException;
+
 
 public class MyService extends IntentService {
 
@@ -27,14 +31,17 @@ public class MyService extends IntentService {
 //step4// method returns the Uri object that i passed in from Activity
         Uri uri = intent.getData();
         Log.i(TAG,"onHandleIntent: " + uri.toString());
+
+        String response;
         try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e){
+             response = HttpHelper.downloadUrl(uri.toString());
+        } catch (IOException e) {
             e.printStackTrace();
+            return;
         }
         //step5
         Intent messageIntent = new Intent(MY_SERVICE_MESSAGE);
-        messageIntent.putExtra(MY_SERVICE_PAYLOAD, "Service all done!");
+        messageIntent.putExtra(MY_SERVICE_PAYLOAD, response);
         LocalBroadcastManager manager = LocalBroadcastManager.getInstance(getApplicationContext());
         manager.sendBroadcast(messageIntent);
     }
