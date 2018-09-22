@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.intentservice.model.DataItem;
 import com.example.android.intentservice.services.MyService;
 import com.example.android.intentservice.utils.NetworkHelper;
 
@@ -26,8 +27,14 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             //message received MY_SERVICE_PAYLOAD
-            String message = intent.getStringExtra(MyService.MY_SERVICE_PAYLOAD);
-            output.append(message + "\n");
+           // String message = intent.getStringExtra(MyService.MY_SERVICE_PAYLOAD);
+            //i am getting back dataItems class
+            DataItem[] dataItems = (DataItem[]) intent.getParcelableArrayExtra(MyService.MY_SERVICE_PAYLOAD);
+            for (DataItem item : dataItems){
+                //only displaying item names coming from web service
+                output.append(item.getItemName() + "\n");
+            }
+
         }
     };
 
