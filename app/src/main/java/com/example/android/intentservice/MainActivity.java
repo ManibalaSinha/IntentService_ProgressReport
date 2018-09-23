@@ -18,6 +18,7 @@ import com.example.android.intentservice.utils.NetworkHelper;
 
 public class MainActivity extends AppCompatActivity {
     private static final String JSON_URL="http://560057.youcanlearnit.net/services/json/itemsfeed.php";
+    private static final String XML_URL="http://560057.youcanlearnit.net/services/xml/itemsfeed.php";
     //step2: connection over the web
     private boolean networkOk;
     TextView output;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         if(networkOk){
         //step3 pass the uri
         Intent intent = new Intent(this, MyService.class);
-        intent.setData(Uri.parse(JSON_URL));
+        intent.setData(Uri.parse(XML_URL));
         startService(intent);
        // startService(intent);
       //  startService(intent);
